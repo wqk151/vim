@@ -205,10 +205,10 @@ nmap  <leader>h  :vertical resize -5<CR>    " 左移5
 nmap  <leader>l  :vertical resize +5<CR>    " 右移5
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
-"cnoremap <C-j> <t_kd>
-"cnoremap <C-k> <t_ku>
-"cnoremap <C-a> <Home>
-"cnoremap <C-e> <End>
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 
 
 " 插入模式下光标移动 -- 会造成Backspace键无法使用
