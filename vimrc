@@ -204,6 +204,10 @@ nmap  <leader>j  :resize -5<CR>     " 下移5
 nmap  <leader>h  :vertical resize -5<CR>    " 左移5
 nmap  <leader>l  :vertical resize +5<CR>    " 右移5
 
+"整行移动
+nnoremap < :m+1<CR>
+nnoremap > :m-2<CR>
+
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
