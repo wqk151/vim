@@ -78,7 +78,7 @@ hi CursorColumn cterm=NONE ctermbg=241 ctermfg=white guibg=darkred guifg=white
 set foldenable
 set foldmethod=indent
 set foldlevel=0
-let g:FoldMethod = 0
+let g:FoldMethod = 1
 map <leader>zz :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
