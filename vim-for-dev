@@ -48,6 +48,8 @@ Plugin 'kien/ctrlp.vim'
 " css3
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'ap/vim-css-color'
+" 快速生成函数注释框架，声明框架
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -197,7 +199,6 @@ endif
 hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
-set t_Co=256
 
 " status line
 " " 命令行（在状态行下）的高度，默认为1，这里是2
@@ -260,7 +261,7 @@ nmap  <leader>j  :resize -5<CR>
 nmap  <leader>h  :vertical resize -5<CR>
 nmap  <leader>l  :vertical resize +5<CR>
 
-nnoremap <C-d> yyp
+nnoremap <C-d> yyp 
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 "cnoremap <C-j> <t_kd>
@@ -402,7 +403,8 @@ let g:ycm_server_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 " for powerline
 set laststatus=2
-
+syntax enable
+set t_Co=256
 "set background=dark
 "colorscheme solarized
 "set termencoding=utf-8
@@ -442,9 +444,33 @@ let NERDTreeShowHidden=0
 let NERDTreeIgnore=['\.pyc','\~$','\.swp','__pycache__','\.git$','\.DS_Store']
 " 设置NERDTree的宽度
 let NERDTreeWinSize=20
-
+" 使用pydoc查看Python帮助
+nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
+let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
+let g:DoxygenToolkit_paramTag_pre="@Param "
+let g:DoxygenToolkit_returnTag="@Returns   "
 " MRU - 快速打开历史文件
-nnoremap <C-e> :Mru<CR>
+nnoremap <leader>e :Mru<CR>
+let MRU_Max_Entries = 1000
+let MRU_Exclude_Files= '.(exe|so|dll|zip|tar|tar.gz|pyc)$'
+let MRU_Window_Height = 15
+"let MRU_Use_Current_Window = 1
+let MRU_Auto_Close = 0
+let MRU_Max_Menu_Entries = 20
+let MRU_Max_Submenu_Entries = 15
+
+" ctrlp 配置
+map <leader>f :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+            \  'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+            \  'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+            \}
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=20
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
 " CSS3
 augroup VimCSS3Syntax
   autocmd!
@@ -463,18 +489,18 @@ augroup END
 "let g:airline_symbols.branch = '⭠'
 "let g:airline_symbols.readonly = '⭤'
 "let g:airline_symbols.linenr = '⭡'
-"let g:airline_theme="bubblegum"
+"let g:airline_theme="bubblegum" 
 "按F5运行python"
-"function! CheckPythonSyntax()
-"    let mp = &makeprg
-"    let ef = &errorformat
-"    let exeFile = expand("%:t")
-"    setlocal makeprg=/data/apps/python3/bin/python3\ -u
-"    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-"    silent make %
-"    copen
-"    let &makeprg     = mp
-"    let &errorformat = ef
+"function! CheckPythonSyntax() 
+"    let mp = &makeprg 
+"    let ef = &errorformat 
+"    let exeFile = expand("%:t") 
+"    setlocal makeprg=/data/apps/python3/bin/python3\ -u 
+"    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+"    silent make % 
+"    copen 
+"    let &makeprg     = mp 
+"    let &errorformat = ef 
 "endfunction
 "au filetype python map <F5>  :w<CR>:call CheckPythonSyntax() <CR>
 "au filetype python imap <F5> <Esc>:w<CR>:call CheckPythonSyntax() <CR>
