@@ -1,7 +1,6 @@
 set nocompatible
-
 " leader
-" " 修改leader键
+" 修改leader键
 let mapleader = ','
 let g:mapleader = ','
 
@@ -15,7 +14,7 @@ set history=2000
 " filetype 检测文件类型
 filetype on
 " Enable filetype plugins
-" " 允许插件
+" 允许插件
 filetype plugin on
 " 针对不同的文件类型采用不同的缩进格式
 filetype indent on
@@ -71,15 +70,17 @@ set softtabstop=4                " insert mode tab and backspace use 4 spaces
 set cursorline
 " 光标竖线
 set cursorcolumn
-" 修改光标默认样式
 hi CursorColumn cterm=NONE ctermbg=241 ctermfg=white guibg=darkred guifg=white
+set t_Co=256
+
 " NOT SUPPORT
 " fold 自定义代码折叠，折叠（和取消折叠）
 set foldenable
 set foldmethod=indent
 set foldlevel=0
+" zM :close all; zR : open all.
+map <leader>zz :call ToggleFold()<CR>
 let g:FoldMethod = 1
-map <leader>zz :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -134,6 +135,8 @@ endif
 " ============================ theme and status line ============================
 " theme
 "set background=dark
+" xshell下与powerline有冲突
+"set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 "colorscheme desert
 "colorscheme solarized
 
@@ -199,23 +202,18 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 " 调整分屏窗口大小
-nmap  <leader>k  :resize +5<CR>     " 上移5
-nmap  <leader>j  :resize -5<CR>     " 下移5
-nmap  <leader>h  :vertical resize -5<CR>    " 左移5
-nmap  <leader>l  :vertical resize +5<CR>    " 右移5
+nmap  <leader>k  :resize +5<CR>
+nmap  <leader>j  :resize -5<CR>
+nmap  <leader>h  :vertical resize -5<CR>
+nmap  <leader>l  :vertical resize +5<CR>
 
-"整行移动
-nnoremap < :m+1<CR>
-nnoremap > :m-2<CR>
-
-" Ctrl+d复制当前行到光标所在行的下一行
 nnoremap <C-d> yyp
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+"cnoremap <C-j> <t_kd>
+"cnoremap <C-k> <t_ku>
+"cnoremap <C-a> <Home>
+"cnoremap <C-e> <End>
 
 
 " 插入模式下光标移动 -- 会造成Backspace键无法使用
@@ -233,6 +231,13 @@ set pastetoggle=<F3>            "    when in insert mode, press <F5> to go to
 " au InsertLeave * set nopaste
 " nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
+" syntax support
+autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
+" " js
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
 " kj 替换 Esc
 inoremap kj <Esc>
 
@@ -244,15 +249,17 @@ nnoremap <leader>w :w<CR>
 " 映射全选+复制 Ctrl+a
 " 映射全选+剪切 Ctrl+x
 " 选中状态下Ctrl+v 粘贴
-"map <C-A> <Esc>ggVGy   " 映射全选+复制 Ctrl+a
-"map <C-X> <Esc>ggVGd   " 映射全选+剪切 Ctrl+x
-"map <C-V> <Esc>p       " 选中状态下Ctrl+v 粘贴
+"map <C-A> <Esc>ggVGy	" 映射全选+复制 Ctrl+a
+"map <C-X> <Esc>ggVGd	" 映射全选+剪切 Ctrl+x
+"map <C-V> <Esc>p		" 选中状态下Ctrl+v 粘贴
 
 " 编辑完成后跳出括号
 imap ,, <Esc>la
 imap .. <Esc>2la
+
 inoremap """ """"""<Esc>2hi<Space><Space><Esc>i
 inoremap ''' ''''''<Esc>2hi<Space><Space><Esc>i
+
 " 应用于django模板语言{%  %}
 inoremap <leader>5 {}<Esc>i%<Space><Space>%<Esc>hi
 " python3 print
@@ -311,7 +318,6 @@ map Y y$
 "Map ; to : and save a million keystrokes
 " ex mode commands made easy 用于快速进入命令行
 nnoremap ; :
-
 " save
 cmap w!! w !sudo tee >/dev/null %
 
@@ -320,4 +326,30 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-set t_Co=256
+
+"按F5运行python"
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java %<"
+    elseif &filetype == 'sh'
+        exec "!time bash %"
+    elseif &filetype == 'python'
+        exec "!time python %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+    endif
+endfunc
