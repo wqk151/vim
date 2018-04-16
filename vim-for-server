@@ -223,6 +223,7 @@ nnoremap <C-d> yyp
 "inoremap <D-K> <Esc>ka
 "
 nnoremap <F2> :set nu! nu?<CR>
+set pastetoggle=<F3>
 
 " au InsertLeave * set nopaste
 " nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
