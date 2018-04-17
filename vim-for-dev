@@ -296,9 +296,9 @@ let g:html_indent_style1 = "inc"
 inoremap kj <Esc>
 
 " Quickly close the current window
-nnoremap <leader>q :q<CR>
+nnoremap <leader>q :q!<CR>
 " Quickly save the current file
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w!<CR>
 
 " 映射全选+复制 Ctrl+a
 " 映射全选+剪切 Ctrl+x
