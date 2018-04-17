@@ -313,7 +313,7 @@ nnoremap ' `
 nnoremap ` '
 " y$ -> Y Make Y behave like other capitals
 map Y y$
-
+map D d$
 "Map ; to : and save a million keystrokes
 " ex mode commands made easy 用于快速进入命令行
 nnoremap ; :
