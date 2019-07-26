@@ -1,11 +1,14 @@
-# vim for server
-<p>cp ~/.vimrc ~/.vimrc_bak</p>
-<code>curl https://raw.githubusercontent.com/wqk151/vim/master/vim-for-server > ~/.vimrc</code>
+### 修改vimrc
+```
+cp ~/.vimrc ~/.vimrc_bak
+curl https://raw.githubusercontent.com/wqk151/vim/master/vimrc-server > ~/.vimrc
+```
 
 ### airline配置
-<p>/root/.vim/plugged/vim-airline/doc/airline.txt</p>
 
-### Go 自动补全修复
+参考:/root/.vim/plugged/vim-airline/doc/airline.txt
+
+### Go 使用YCM自动补全修复
 
 ```
 cd ~/.vim/bundle
@@ -21,6 +24,9 @@ go mod init
 go build .
 ```
 
-### ale 对Go检查
+### ale 对Go语法检查
+
+```
 go vet 单个文件时无法识别同包的自定义类型
 将ale卸载重新安装
+```
