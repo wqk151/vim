@@ -719,12 +719,12 @@ endif
 " Theme Settings  主题设置
 "==========================================
 set background=dark        " Assume a dark background
-colorscheme molokai
-"if has('gui_running')
-"    colorscheme solarized
-"else
-"    colorscheme molokai
-"endif
+colrscheme molokai
+if has('gui_running')
+    colorscheme solarized
+else
+    colorscheme molokai
+endif
 set t_Co=256
 
 
