@@ -189,9 +189,9 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 nnoremap <F2> :set nu! nu?<CR>
-nnoremap <F3> :set list! list?<CR>
+nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
+"set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
 au InsertLeave * set nopaste
@@ -211,6 +211,16 @@ imap .. <Esc>2la
 
 " 应用于django模板语言{%  %}
 inoremap <leader>5 {}<Esc>i%<Space><Space>%<Esc>hi
+
+nnoremap <C-d> yyp
+inoremap """  """""" <Esc>2hi<Space><Space><Esc>i
+inoremap '''  '''''' <Esc>2hi<Space><Space><Esc>i
+inoremap ` ``<Esc>i
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap { {}<Esc>i
 
 " select all
 map <Leader>sa ggVG"
