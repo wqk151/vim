@@ -46,6 +46,7 @@ set tm=500
 " show location
 set cursorcolumn
 set cursorline
+set t_Co=256
 
 
 " movement
