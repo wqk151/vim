@@ -67,6 +67,13 @@ Plug 'honza/vim-snippets'  " 一些常用的代码片段"
 " Emmet
 Plug 'mattn/emmet-vim'
 
+" 快速跳转
+Plug 'Lokaltog/vim-easymotion'
+" 快速加入修改环绕字符
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+" 多光标选中编辑
+Plug 'terryma/vim-multiple-cursors'
 "" A Git wrapper so awesome
 "Plug 'tpope/vim-fugitive'
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
@@ -719,7 +726,6 @@ endif
 " Theme Settings  主题设置
 "==========================================
 set background=dark        " Assume a dark background
-colrscheme molokai
 if has('gui_running')
     colorscheme solarized
 else
@@ -777,6 +783,11 @@ map <F6> :ALEToggle \| echo 'g:ale_enabled =' g:ale_enabled<CR>
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_echo_msg_warning_str = 'Warning'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"let g:ale_linters = {
+"\   'c++': ['clang'],
+"\   'c': ['clang'],
+"\   'javascript': ['eslint'],
+"\}
 
 " YouCompleteMe settings
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
@@ -841,11 +852,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 " 设置NERDTree的宽度
 let NERDTreeWinSize=20
-" 自动开启Nerdtree
-" autocmd vimenter * NERDTree
-" 打开vim时如果没有文件自动打开NERDTree
-autocmd vimenter * if !argc()|NERDTree|endif
-" 当NERDTree为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " for powerline 已弃用
@@ -912,5 +918,23 @@ let g:ctrlp_follow_symlinks=1
 let g:go_fmt_command = "goimports"
 nnoremap <leader>g :GoDef<CR>
 nnoremap <leader>b :b 1<CR>
+
+" for vim-easymotion
+let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
+" 重复上一æ¬¡操作, 类似repeat插件, 很强大
+map <Leader><leader>. <Plug>(easymotion-repeat)
+
+" for multiplecursors
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 
 so ~/.vimrc.local
